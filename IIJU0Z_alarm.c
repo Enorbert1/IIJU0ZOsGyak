@@ -1,0 +1,26 @@
+#include <unistd.h>
+#include <signal.h>
+
+void do_nothing();
+void do_int();
+
+int main ()
+{
+	int i;
+	int sec=1;
+
+	signal(SIGINT, do_int);
+
+for (i=1;i<8;i++) {
+	alarm(sec);
+	signal(SIGALRM, do_nothing);
+	printf("  %d\n",i);
+	pause();
+    }
+	return 0;
+}	
+void do_nothing(){ ;}
+
+void do_int() {
+	printf(" int jott ");
+	signal(SIGINT,SIG_IGN);
